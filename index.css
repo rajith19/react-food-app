@@ -23,33 +23,158 @@
   margin: 10px;
 }
 
-.res-container{
-    display: flex;
-    flex-wrap: wrap;
+.res-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .res-card {
   width: 200px;
-  height: 300px;
+  height: 100%;
   padding: 5px;
   margin: 1em;
   /* border: 1px solid #000; */
   transition: all 0.05s ease 0s;
-
 }
 
 .res-card:hover {
   cursor: pointer;
   transform: scale(0.95, 0.95);
-    transform-origin: center center;
-    transition: all 0.1s ease-in 0s;
+  transform-origin: center center;
+  transition: all 0.1s ease-in 0s;
+}
+
+.search-container {
+  display: flex;
+  margin: 1em 0;
 }
 
 .search {
   padding: 1em;
 }
 
-.res-logo {
-  width: 100%;
+.search-bar{
+  margin: 0 1em 0 0;
 }
 
+.res-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 2px 8px);
+}
+.res-logo {
+  object-fit: cover;
+  width: 100%;
+  height: 10em;
+}
+
+.filter-btn {
+  cursor: pointer;
+}
+
+.shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.name {
+  margin: 0px;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Basis Grotesque Pro";
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.3px;
+  color: rgba(2, 6, 12, 0.75);
+  overflow: hidden;
+  width: 100%;
+  display: -webkit-box;
+  overflow-wrap: break-word;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.cuisines {
+  -webkit-font-smoothing: antialiased;
+  font-family: "Basis Grotesque Pro";
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 19px;
+  letter-spacing: -0.3px;
+  color: rgba(2, 6, 12, 0.6);
+  overflow: hidden;
+  width: 100%;
+  display: -webkit-box;
+  overflow-wrap: break-word;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.login {
+  padding: 0 1em;
+  width: 7em;
+  cursor: pointer;
+}
+
+.filteredLink {
+  text-decoration: none;
+  color: unset;
+}
+
+/* ShimmerCard.css */
+
+.shimmer-card-container {
+  display: flex;
+  flex-direction: column; /* Change to row to align descriptions to the left */
+  align-items: flex-start; /* Align descriptions to the top */
+}
+
+.shimmer-card {
+  width: 300px;
+  height: 200px;
+  background: #f6f7f8;
+  border-radius: 8px;
+  margin: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.shimmer-card-descriptions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align descriptions to the left */
+  margin-left: 10px; /* Add margin to separate the descriptions from the card */
+}
+
+.shimmer-card-description {
+  height: 20px;
+  background: linear-gradient(90deg, #f6f7f8 25%, #eaeaea 50%, #f6f7f8 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.width-3 {
+  width: 15em;
+}
+
+.width-2 {
+  width: 13em;
+}
+
+.width-1 {
+  width: 10em;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
