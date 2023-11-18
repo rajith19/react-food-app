@@ -1,36 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+import useRestaurantInfo from '../utils/useRestaurantInfo';
 import ShimmerUiDetails from './ShimmerUiDetails';
 
 const RestaurantMenu = () => {
 
-    useEffect(() => {
-        fetchMenu();
-    }, []);
-
-    const [restaurantInfo, setRestaurantInfo] = useState("");
-    const [restaurantMenuList, setRestaurantMenuList] = useState([]);
     const { resId } = useParams();
-    const fetchMenu = async () => {
-        const fetchdata = await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9351929&lng=77.&restaurantId=${resId}&catalog_qa=undefined&submitAction=ENTER`);
-        const json = await fetchdata.json();
-        setRestaurantInfo(json?.data?.cards[0]?.card?.card?.info)
-        setRestaurantMenuList(json?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards)
-    }
+    const restaurantInfo = useRestaurantInfo(resId);
 
-    const { name, cuisines, costForTwoMessage } = restaurantInfo;
+    if (restaurantInfo === null) return <ShimmerUiDetails />;
 
-    return restaurantInfo?.length == 0 ? <ShimmerUiDetails /> :
+    const { name, cuisines, costForTwoMessage } = restaurantInfo?.cards[0]?.card?.card?.info;
+    const restaurantMenuList = restaurantInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards;
+
+    return restaurantInfo.cards[0]?.card?.card?.info?.length == 0 ? <ShimmerUiDetails /> :
         (
             <div className='menu'>
                 <h1>{name}</h1>
-                <h2>{cuisines?.join(", ")}</h2>
-                <h2>{costForTwoMessage}</h2>
+                <h4>{cuisines?.join(", ")} -  {costForTwoMessage}</h4>
                 <h2>Menu</h2>
                 <ul>{
                     restaurantMenuList?.map((list) => {
                         return (
-                            <li key={list?.card?.info?.id}>{list?.card?.info?.name}</li>
+                            <div>
+                                <li key={list?.card?.info?.id}>{list?.card?.info?.name} - Rs.{list?.card?.info?.price / 100 || list?.card?.info?.defaultPrice / 100}  </li>
+                            </div>
                         )
                     })
                 }

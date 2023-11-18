@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useDebounce from "../utils/useDebounce";
 import RestaurantCard from "./RestaurantCard";
 import ShimmerUi from "./ShimmerUi";
 
@@ -8,7 +9,13 @@ const Body = () => {
     const [ListOfRestaurants, setListOfRestaurants] = useState([]);
     const [filteredRestaurants, setfilteredRestaurants] = useState([]);
     const [searchRestaurantText, setsearchRestaurantText] = useState("");
+    const debouncedSearchTerm = useDebounce(searchRestaurantText, 500); // 500ms delay
 
+    useEffect(() => {
+        if (debouncedSearchTerm) {
+            filteredData();
+        }
+    }, [debouncedSearchTerm]);
 
     useEffect(() => {
         fetchData();
@@ -36,6 +43,13 @@ const Body = () => {
 
     }
 
+    const filteredData = () => {
+        const filteredRes = ListOfRestaurants.filter((res) =>
+            (res?.info?.name.toLowerCase().includes(searchRestaurantText.toLowerCase()))
+        )
+        setfilteredRestaurants(filteredRes);
+    }
+
     return ListOfRestaurants?.length === 0 ? <ShimmerUi /> :
         (
             <div className="body">
@@ -44,10 +58,7 @@ const Body = () => {
                         <input type="text" className="searchText" value={searchRestaurantText}
                             onChange={(e) => setsearchRestaurantText(e.target.value)}></input>
                         <button onClick={() => {
-                            const filteredRes = ListOfRestaurants.filter((res) =>
-                                (res?.info?.name.toLowerCase().includes(searchRestaurantText.toLowerCase()))
-                            )
-                            setfilteredRestaurants(filteredRes);
+                            filteredData()
                         }}>Search</button>
                     </div>
                     <div className="filter">
