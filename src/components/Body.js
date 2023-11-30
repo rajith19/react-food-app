@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useDebounce from "../utils/useDebounce";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { PromotedRestaurantCard } from "./RestaurantCard";
 import ShimmerUi from "./ShimmerUi";
 
 const Body = () => {
@@ -10,6 +10,7 @@ const Body = () => {
     const [filteredRestaurants, setfilteredRestaurants] = useState([]);
     const [searchRestaurantText, setsearchRestaurantText] = useState("");
     const debouncedSearchTerm = useDebounce(searchRestaurantText, 500); // 500ms delay
+    const WithRestaurantCard = PromotedRestaurantCard(RestaurantCard);
 
     useEffect(() => {
         if (debouncedSearchTerm) {
@@ -52,27 +53,29 @@ const Body = () => {
 
     return ListOfRestaurants?.length === 0 ? <ShimmerUi /> :
         (
-            <div className="body">
-                <div className="search-container">
-                    <div className="search-bar">
-                        <input type="text" className="searchText" value={searchRestaurantText}
+            <div className="mx-20 my-4 px-16">
+                <div className="flex m-4 items-center">
+                    <div className="pr-4 py-4">
+                        <input type="text" className="border border-black mr-4 cursor-auto" value={searchRestaurantText}
                             onChange={(e) => setsearchRestaurantText(e.target.value)}></input>
-                        <button onClick={() => {
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded cursor-pointer" onClick={() => {
                             filteredData()
                         }}>Search</button>
                     </div>
-                    <div className="filter">
-                        <button className="filter-btn" onClick={() => {
+                    <div className="p-4">
+                        <button className="bg-white hover:bg-gray-100 text-gray-800 border font-semibold py-[0.3rem] px-4 rounded cursor-pointer" onClick={() => {
                             const filteredList = ListOfRestaurants.filter(res => res.info.avgRating > 4.3);
                             setfilteredRestaurants(filteredList);
                         }}> Top Rated Restaurant</button>
                     </div>
                 </div>
-                <div className="res-container">
+                <div className="grid grid-cols-4 gap-6 grid-flow-row justify-items-center">
                     {
                         filteredRestaurants?.map((restaurant) => (
                             <Link key={restaurant.info.id} to={`/restaurant/${restaurant.info.id}`} className="filteredLink">
-                                <RestaurantCard resData={restaurant} key={restaurant.info.id} />
+                                {restaurant?.info?.aggregatedDiscountInfoV3?.discountTag === "FLAT DEAL" ?
+                                    <WithRestaurantCard resData={restaurant} key={restaurant.info.id} />
+                                    : <RestaurantCard resData={restaurant} key={restaurant.info.id} />}
                             </Link>
                         ))
                     }
