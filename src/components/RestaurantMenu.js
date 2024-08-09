@@ -11,8 +11,12 @@ const RestaurantMenu = () => {
     const [showIndex, setShowIndex] = useState(0);
     if (restaurantInfo === null) return <ShimmerUiDetails />;
 
-    const { name, cuisines, costForTwoMessage } = restaurantInfo?.cards[0]?.card?.card?.info;
-    const itemCategories = restaurantInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(category => category?.card?.card["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+
+    console.log(restaurantInfo?.cards);
+    const { name, cuisines, costForTwoMessage } = restaurantInfo?.cards[2]?.card?.card?.info;
+    const itemCategories = restaurantInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(category => category?.card?.card["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+    console.log( itemCategories, restaurantInfo?.cards);
+
     return restaurantInfo.cards[0]?.card?.card?.info?.length == 0 ? <ShimmerUiDetails /> :
         (
             <div className='text-center my-10'>
