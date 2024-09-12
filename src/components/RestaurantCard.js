@@ -6,7 +6,7 @@ const RestaurantCard = (props) => {
     const { slaString } = sla;
 
     return (
-        <div className="w-[250px] cursor-pointer transition-all">
+        <div className="w-[250px] cursor-pointer transition-all hover:scale-95 hover:origin-center hover:transition-all hover:ease-in-out">
             <div className="grid gap-3 justify-stretch">
                 <div className="relative border rounded-2xl overflow-hidden drop-shadow-lg w-56 h-40">
                     <img className="w-full h-full object-cover" alt="res-logo" src={CDN_URL + cloudinaryImageId} />
@@ -30,7 +30,7 @@ const RestaurantCard = (props) => {
 export const PromotedRestaurantCard = (RestaurantCard) => {
     return (props) => {
         return <div className="relative overflow-hidden">
-            <div className="absolute left-0 top-0 h-16 w-16 z-10">
+            <div className="absolute left-0 top-0 h-16 w-16 z-10 ">
 
                 <div className="absolute left-[-55px] top-[15px] w-[170px] transform -rotate-45 bg-green-700 text-center text-white font-semibold py-1">Popular</div>
 

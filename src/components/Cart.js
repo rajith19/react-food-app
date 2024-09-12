@@ -14,7 +14,7 @@ const Cart = () => {
     };
 
     return (
-        <div className='text-center m-4 p-4 flex flex-col items-center justify-center h-[50vh]'>
+        <div className='text-center m-4 p-4 flex flex-col items-center'>
             {cartItems.length !== 0 ? (
                 <>
                     <h1 className='font-bold text-xl'>Cart</h1>
