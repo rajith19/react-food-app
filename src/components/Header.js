@@ -22,7 +22,7 @@ const Header = () => {
             {/* Navigation Links - Aligning to the left */}
             <nav className="flex-grow hidden md:flex items-center space-x-6 ml-6">
                 <ul className="flex items-center space-x-6">
-                    <li><Link to="/">Home</Link></li>
+                    {/* <li><Link to="/">Home</Link></li> */}
                     {/* <li><Link to="/about">About Us</Link></li>
                     <li><Link to="/contact">Contact Us</Link></li>
                     <li><Link to="/grocery">Grocery</Link></li> */}
@@ -91,7 +91,7 @@ const Header = () => {
             {isMenuOpen && (
                 <nav className="absolute top-full left-0 w-full bg-white shadow-lg md:hidden">
                     <ul className="flex flex-col items-center py-4 space-y-4">
-                        <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
+                        {/* <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li> */}
                         {/* <li><Link to="/about" onClick={() => setIsMenuOpen(false)}>About Us</Link></li>
                         <li><Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact Us</Link></li>
                         <li><Link to="/grocery" onClick={() => setIsMenuOpen(false)}>Grocery</Link></li> */}
