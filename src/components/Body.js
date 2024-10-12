@@ -56,27 +56,28 @@ const Body = () => {
     return ListOfRestaurants?.length === 0 ? (
         <ShimmerUi />
     ) : (
-        <div className="mx-20 my-4 px-16">
-            <div className="flex m-4 items-center">
-                <div className="pr-4 py-4">
+        <div className="mx-4 sm:mx-10 lg:mx-20 my-4 px-4 sm:px-8 lg:px-16">
+            <div className="flex flex-col md:flex-row m-4 items-center">
+                <div className="md:pr-4 py-4 w-full md:w-auto">
                     <input
                         type="text"
-                        className="rounded border border-black mr-4 cursor-auto py-1 px-2"
+                        data-testid="search"
+                        className="rounded border border-black mr-4 cursor-auto py-1 px-2 w-full md:w-auto"
                         value={searchRestaurantText}
                         onChange={(e) => setSearchRestaurantText(e.target.value)}
                     />
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-lg cursor-pointer"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-lg cursor-pointer mt-2 md:mt-0 w-full md:w-auto"
                         onClick={filteredData}
                     >
                         Search
                     </button>
                 </div>
-                <div className="p-4">
+                <div className="p-4 w-full md:w-auto">
                     <button
-                        className="flex items-center bg-blue-500 hover:bg-blue-700 text-white border font-semibold py-[0.3rem] px-4 rounded-lg cursor-pointer"
+                        className="flex items-center bg-blue-500 hover:bg-blue-700 text-white border font-semibold py-[0.3rem] px-4 rounded-lg cursor-pointer w-full md:w-auto"
                         onClick={() => {
-                            const filteredList = ListOfRestaurants.filter(res => (res.info.avgRating > 4.5));
+                            const filteredList = ListOfRestaurants.filter((res) => res.info.avgRating > 4.5);
                             setFilteredRestaurants(filteredList);
                             setIsFiltered(true);
                         }}
@@ -94,18 +95,18 @@ const Body = () => {
                         )
                     </button>
                 </div>
-                <div className="p-4">
+                <div className="p-4 w-full md:w-auto">
                     <input
                         type="text"
                         placeholder="Change the profile name"
-                        className="rounded border border-black mr-4 cursor-auto px-2 py-1"
+                        className="rounded border border-black mr-4 cursor-auto px-2 py-1 w-full md:w-auto"
                         value={tempName}
-                        onChange={(e) => setTempName(e.target.value)} // Updated to use target.value for username change
+                        onChange={(e) => setTempName(e.target.value)}
                     />
                 </div>
             </div>
-            {isFiltered &&
-                <span class="bg-blue-100 text-white text-xs font-medium me-2 px-2.5 py-1 rounded dark:bg-blue-900 dark:text-white flex items-center w-fit">
+            {isFiltered && (
+                <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-1 rounded dark:bg-blue-900 dark:text-white flex items-center w-fit mt-2">
                     Above 4.5{" "}
                     <svg
                         className="ml-1 w-4 h-4 text-yellow-300 inline-block"
@@ -116,12 +117,30 @@ const Body = () => {
                     >
                         <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                     </svg>
-                    <button className="ml-2" onClick={() => filteredData()}><svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <line x1="18" y1="6" x2="6" y2="18" />  <line x1="6" y1="6" x2="18" y2="18" /></svg></button>
-                </span>}
-            <div className="grid grid-cols-4 gap-6 grid-flow-row justify-items-center mt-10">
-                {filteredRestaurants.length !== 0
-                    ? filteredRestaurants?.map((restaurant) => (
-                        <Link key={restaurant.info.id} to={`/restaurant/${restaurant.info.id}`} className="filteredLink">
+                    <button className="ml-2" onClick={() => filteredData()}>
+                        <svg
+                            className="h-5 w-5 text-white"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </span>
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 grid-flow-row justify-items-center mt-10">
+                {filteredRestaurants.length !== 0 ? (
+                    filteredRestaurants?.map((restaurant) => (
+                        <Link
+                            key={restaurant.info.id}
+                            to={`/restaurant/${restaurant.info.id}`}
+                            className="filteredLink w-full sm:w-auto"
+                        >
                             {restaurant?.info?.aggregatedDiscountInfoV3?.discountTag === "FLAT DEAL" ? (
                                 <WithRestaurantCard resData={restaurant} key={restaurant.info.id} />
                             ) : (
@@ -129,7 +148,9 @@ const Body = () => {
                             )}
                         </Link>
                     ))
-                    : "No results match your search. Try another term!"}
+                ) : (
+                    "No results match your search. Try another term!"
+                )}
             </div>
         </div>
     );
