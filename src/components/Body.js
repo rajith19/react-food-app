@@ -57,25 +57,28 @@ const Body = () => {
         <ShimmerUi />
     ) : (
         <div className="mx-4 sm:mx-10 lg:mx-20 my-4 px-4 sm:px-8 lg:px-16">
-            <div className="flex flex-col md:flex-row m-4 items-center">
-                <div className="md:pr-4 py-4 w-full md:w-auto">
+            <div className="flex flex-col lg:flex-row m-4 items-center gap-4">
+                {/* Search Input and Button */}
+                <div className="lg:pr-4 py-4 w-full lg:w-auto flex flex-col lg:flex-row items-center gap-2">
                     <input
                         type="text"
                         data-testid="search"
-                        className="rounded border border-black mr-4 cursor-auto py-1 px-2 w-full md:w-auto"
+                        className="rounded border border-black cursor-auto py-1 px-2 w-full lg:w-auto"
                         value={searchRestaurantText}
                         onChange={(e) => setSearchRestaurantText(e.target.value)}
                     />
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-lg cursor-pointer mt-2 md:mt-0 w-full md:w-auto"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-lg cursor-pointer w-full lg:w-auto"
                         onClick={filteredData}
                     >
                         Search
                     </button>
                 </div>
-                <div className="p-4 w-full md:w-auto">
+
+                {/* Top Rated Button */}
+                <div className="w-full lg:w-auto flex justify-center">
                     <button
-                        className="flex items-center bg-blue-500 hover:bg-blue-700 text-white border font-semibold py-[0.3rem] px-4 rounded-lg cursor-pointer w-full md:w-auto"
+                        className="flex items-center bg-blue-500 hover:bg-blue-700 text-white border font-semibold py-2 px-4 rounded-lg cursor-pointer w-full lg:w-auto"
                         onClick={() => {
                             const filteredList = ListOfRestaurants.filter((res) => res.info.avgRating > 4.5);
                             setFilteredRestaurants(filteredList);
@@ -95,16 +98,19 @@ const Body = () => {
                         )
                     </button>
                 </div>
-                <div className="p-4 w-full md:w-auto">
+
+                {/* Profile Name Input */}
+                <div className="w-full lg:w-auto">
                     <input
                         type="text"
                         placeholder="Change the profile name"
-                        className="rounded border border-black mr-4 cursor-auto px-2 py-1 w-full md:w-auto"
+                        className="rounded border border-black cursor-auto px-2 py-1 w-full lg:w-auto"
                         value={tempName}
                         onChange={(e) => setTempName(e.target.value)}
                     />
                 </div>
             </div>
+
             {isFiltered && (
                 <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-1 rounded dark:bg-blue-900 dark:text-white flex items-center w-fit mt-2">
                     Above 4.5{" "}
