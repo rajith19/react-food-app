@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
 import About from "./components/About";
 import Body from "./components/Body";
 import Contact from "./components/Contact";
@@ -21,8 +21,8 @@ const AppLayout = () => {
     const [name, setName] = useState("");
 
     useEffect(() => {
-        setName("Rajith")
-    }, [])
+        setName("Rajith");
+    }, []);
 
     return (
         <Provider store={appStore}>
@@ -33,9 +33,9 @@ const AppLayout = () => {
                 </div>
             </UserContext.Provider>
         </Provider>
-    )
-}
-const appRouter = createBrowserRouter([
+    );
+};
+const appRouter = createHashRouter([
     {
         path: "/",
         element: <AppLayout />,
@@ -68,7 +68,7 @@ const appRouter = createBrowserRouter([
         errorElement: <Error />
     },
 
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
