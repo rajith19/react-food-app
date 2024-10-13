@@ -6,7 +6,7 @@ This project is a clone of the Swiggy website, built using React, Redux Toolkit,
 
 - **Live API integration**: Fetch real-time restaurant and menu data.
 - **React Hooks**: Used for handling state and component lifecycle.
-- **Redux Toolkit**: Manages global state (cart, user login, etc.).
+- **Redux Toolkit**: Manages global state (cart).
 - **Responsive Design**: Fully responsive across devices.
 
 ## Tech Stack
